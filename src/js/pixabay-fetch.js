@@ -6,6 +6,7 @@ export default class PixabayApiServise {
   constructor() {
     this.searchQuery = '';
     this.page = 1;
+    this.per_page = 40;
   }
 
   async fetchPicture() {
@@ -16,9 +17,11 @@ export default class PixabayApiServise {
       orientation: 'horizontal',
       safesearch: true,
       page: this.page,
-      per_page: 40,
+      per_page: this.per_page,
     });
+
     const url = `${BASE_URL}?${searchParams}`;
+    this.incrementPage();
     return await axios.get(url);
   }
 
@@ -27,6 +30,10 @@ export default class PixabayApiServise {
   }
   resetPage() {
     this.page = 1;
+  }
+
+  get per_Page() {
+    return this.per_page;
   }
   get query() {
     return this.searchQuery;
